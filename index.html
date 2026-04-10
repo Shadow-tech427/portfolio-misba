@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaikh Misba - Full Stack Java Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-color: #333;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --gray-color: #64748b;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-light {
+            background-color: white;
+        }
+
+        .section-dark {
+            background-color: var(--light-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 10rem;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .profile-image {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-category h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .project-header h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background-color: #e0f2fe;
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-features li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .project-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Education Section */
+        .education-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .education-timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .education-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .education-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .education-content {
+            width: 50%;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .education-item:nth-child(even) .education-content {
+            margin-left: auto;
+        }
+
+        .education-item:nth-child(odd) .education-content {
+            margin-right: auto;
+        }
+
+        .education-content h3 {
+            color: var(--primary-color);
+        }
+
+        .education-year {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .education-item:nth-child(odd) .education-year {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .education-timeline:before {
+                left: 30px;
+            }
+
+            .education-item {
+                flex-direction: row !important;
+            }
+
+            .education-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            .education-year {
+                left: 0;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                padding-top: 8rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Shaikh Misba</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Full Stack Java Developer</h1>
+                    <p>Detail-oriented Full Stack Java Developer skilled in Core Java, Spring Boot, JDBC, Servlets, JSP, and RESTful APIs, with frontend expertise in HTML, CSS, JavaScript, Bootstrap, and React.js.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>misba6602@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>9699782129</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Pune, India</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn">View Projects</a>
+                        <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-light">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div>
+                    <p>I'm a passionate Full Stack Java Developer with experience in building scalable, efficient, and user-friendly software solutions. My expertise includes both frontend and backend technologies with a strong focus on Java-based web applications.</p>
+                    <p>I have hands-on experience with MySQL database applications, OOP principles, MVC architecture, and end-to-end web development. I enjoy solving complex problems and creating applications that make a difference.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Skills</h3>
+                    <div class="skills-list">
+                        <div class="skill-category">
+                            <h4>Programming Languages</h4>
+                            <ul>
+                                <li>C</li>
+                                <li>DSA</li>
+                                <li>Java</li>
+                                <li>JavaScript</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Backend Technologies</h4>
+                            <ul>
+                                <li>Java</li>
+                                <li>JDBC</li>
+                                <li>Spring Boot</li>
+                                <li>ORM / Hibernate</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Frontend Technologies</h4>
+                            <ul>
+                                <li>HTML5</li>
+                                <li>CSS3</li>
+                                <li>JavaScript</li>
+                                <li>Bootstrap</li>
+                                <li>React.js</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Tools & Platforms</h4>
+                            <ul>
+                                <li>Git, GitHub</li>
+                                <li>VS Code, Eclipse</li>
+                                <li>Postman</li>
+                                <li>Railway, Render</li>
+                                <li>Supabase, Sendgrid</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-dark">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Customer Data Management Portal</h3>
+                        <div class="project-date">11/2025 - 01/2026</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">React.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <ul class="project-features">
+                            <li>Developed a responsive multi-page React application for managing customer data</li>
+                            <li>Implemented Create, Read, Update, Delete (CRUD) operations</li>
+                            <li>Built backend services and business logic using Spring Boot</li>
+                            <li>Integrated frontend with backend using Axios and REST APIs</li>
+                            <li>Added search functionality by ID, name, mobile, and address</li>
+                            <li>Connected Spring Boot backend to database using JPA/Hibernate</li>
+                            <li>Deployed frontend on Netlify and backend on cloud platform</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Blood Bank Management System</h3>
+                        <div class="project-date">02/2025 - 04/2025</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <ul class="project-features">
+                            <li>Designed responsive user interfaces using React.js</li>
+                            <li>Developed RESTful APIs using Spring Boot</li>
+                            <li>Performed CRUD operations using MySQL database</li>
+                            <li>Applied MVC architecture for structured application flow</li>
+                            <li>Integrated frontend and backend using JSON-based APIs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section-light">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="education-timeline">
+                <!-- Education 1 -->
+                <div class="education-item">
+                    <div class="education-year">2022 - 2025</div>
+                    <div class="education-content">
+                        <h3>Bachelor of Computer Science</h3>
+                        <p><strong>Savitribai Phule Pune University</strong></p>
+                        <p>CGPA: 8.82</p>
+                    </div>
+                </div>
+                
+                <!-- Education 2 -->
+                <div class="education-item">
+                    <div class="education-year">2021 - 2022</div>
+                    <div class="education-content">
+                        <h3>HSC (Higher Secondary Certificate)</h3>
+                        <p><strong>Shri Vridheshwar Junior College Tisgaon</strong></p>
+                        <p>Percentage: 66%</p>
+                    </div>
+                </div>
+                
+                <!-- Education 3 -->
+                <div class="education-item">
+                    <div class="education-year">2019 - 2020</div>
+                    <div class="education-content">
+                        <h3>SSC (Secondary School Certificate)</h3>
+                        <p><strong>Shri Vridheshwar High School Tisgaon</strong></p>
+                        <p>Percentage: 88%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h2 style="color: white;">Get In Touch</h2>
+                <p>I'm always open to discussing new opportunities, interesting projects, or potential collaborations.</p>
+                
+                <div class="contact-info" style="justify-content: center; margin-top: 2rem;">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope" style="color: white;"></i>
+                        <span>misba6602@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone" style="color: white;"></i>
+                        <span>9699782129</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt" style="color: white;"></i>
+                        <span>Pune, India</span>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/misbashaikh2004" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/misba-shaikh-521095306" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:misba6602@gmail.com" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#education">Education</a>
+                </div>
+                
+                <div class="declaration" style="margin-top: 2rem; padding: 1.5rem; background-color: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                    <p><i>I hereby declare that the above mentioned information is true and correct to the best of my knowledge and belief.</i></p>
+                    <p style="margin-top: 1rem; font-weight: 500;">Shaikh Misba</p>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2026 Shaikh Misba. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
